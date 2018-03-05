@@ -1,7 +1,7 @@
-## Editing scenes
+## Editing Scenes
 
-You can dynamically edit most things in your scene at runtime. Create and destroy components, link or unlink them, update their properties etc.  
-  
+You can dynamically edit most things in your scene at runtime. Create and destroy components, link or unlink them, update their properties etc.
+
 Let's add [rotation](http://xeogl.org/docs/classes/Rotate.html) and [scale](http://xeogl.org/docs/classes/Scale.html) transforms to our torus, then increase its size:
 
 ```js
@@ -15,9 +15,8 @@ entity.transform = new xeogl.Rotate({
 });
 
 // Increase the size
-entity.transform.parent.[1.5,  1.5, 1.5]; 
+entity.transform.parent.[1.5,  1.5, 1.5];
 ```
 
-  
 
 

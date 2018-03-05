@@ -5,4 +5,5 @@
 * [Features](features.md)
 * [Creating a 3D Scene](creating-a-scene.md)
 * [Editing Scenes](editing-scenes.md)
+* [Loading glTF Models](loading-gltf-models.md)
 
