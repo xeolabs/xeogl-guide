@@ -2,7 +2,7 @@
 
 Load 3D models into your scene from glTF:
 
-```
+```js
 var model = new xeogl.GLTFModel({
     id: "office",
     src: "models/gltf/office/scene.gltf"
@@ -11,7 +11,7 @@ var model = new xeogl.GLTFModel({
 
 Then animate and navigate their entities to create custom visualizations:
 
-```
+```js
 model.on("loaded", function() {
 
     // When model loaded, highlight its furniture
