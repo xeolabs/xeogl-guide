@@ -1,6 +1,7 @@
 ## Loading glTF Models
 
-* [Supported features](#supported-features)
+* [Overview](#overview)
+* [Supported glTF 2.0 features](#supported-features)
 * [Loading glTF](#loading-gltf)
 * [Loading options](#loading-options)
 * [Finding loaded Entities](#finding-loaded-entities)
