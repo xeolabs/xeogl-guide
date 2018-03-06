@@ -8,7 +8,7 @@ To get started, first include [xeogl.js](https://github.com/xeolabs/xeogl/tree/m
 
 Then define your 3D scene as an entity-component graph, as shown below.
 
-Your scene is basically a bunch of[components](http://xeogl.org/docs/classes/Component.html)that are tied together by[entities](http://xeogl.org/docs/classes/Entity.html). Each entity represents a WebGL draw call.
+Your scene is basically a bunch of [components](http://xeogl.org/docs/classes/Component.html) that are tied together by [entities](http://xeogl.org/docs/classes/Entity.html). Each entity represents a WebGL draw call.
 
 ```js
 var geometry = new xeogl.TorusGeometry({
@@ -36,7 +36,4 @@ Here's what we just created:
 [![](http://localhost:8082/website/assets/images/example1.png)](http://xeogl.org/examples/#entities_examples_metallicTorus)
 
 [![](http://localhost:8082/website/assets/images/conceptScene.png)](http://xeogl.org/examples/#importing_gltf_GearboxAssy)
-
-  
-
 
