@@ -77,16 +77,16 @@ The following options may be specified when loading glTF:
 | Option | Type | Range | Default Value | Description |
 |:--------:|:----:|:-----:|:-------------:|:-----:|:-----------:|
 | flattenTransforms | Boolean |  | true | Flattens transform hierarchies to improve rendering performance. |
-| lambertMaterials | Boolean |  | false | When true, gives each [Entity](http://xeogl.org/docs/classes/Entity.html) the same [LambertMaterial](http://xeogl.org/docs/classes/LambertMaterial.html) and a ````colorize```` property set the to diffuse RGB color extracted from the glTF material. This is typically used for CAD models with huge amounts of objects, and will ignore textures.|
+| lambertMaterials | Boolean |  | false | When true, gives each [http://xeogl.org/docs/classes/Entity.html](Entity) the same [http://xeogl.org/docs/classes/LambertMaterial.html](LambertMaterial) and a ````colorize```` property set the to diffuse RGB color extracted from the glTF material. This is typically used for CAD models with huge amounts of objects, and will ignore textures.|
 | quantizeGeometry | Boolean |  | true | When true, quantizes geometry to reduce memory and GPU bus usage (see [Geometry](http://xeogl.org/docs/classes/Geometry.html)). |
 | combineGeometry | Boolean |  | true | When true, combines geometry vertex buffers to improve rendering performance (see [Geometry](http://xeogl.org/docs/classes/Geometry.html)). |
 | backfaces | Boolean |  | true | When true, allows visible backfaces, wherever specified in the glTF. When false, ignores backfaces. |
-| ghost | Boolean |  | false | When true, ghosts all the model's Entities (see [Entity](http://xeogl.org/docs/classes/Entity.html) and [GhostMaterial](http://xeogl.org/docs/classes/GhostMaterial.html)). |
-| outline | Boolean |  | false | When true, outlines all the model's Entities (see [Entity](http://xeogl.org/docs/classes/Entity.html) and [OutlineMaterial](http://xeogl.org/docs/classes/OutlineMaterial.html)). |
-| highlight | Boolean |  | false | When true, highlights all the model's Entities (see [Entity](http://xeogl.org/docs/classes/Entity.html)). |
+| ghost | Boolean |  | false | When true, ghosts all the model's Entities (see [http://xeogl.org/docs/classes/Entity.html](Entity) and [http://xeogl.org/docs/classes/GhostMaterial.html](GhostMaterial)). |
+| outline | Boolean |  | false | When true, outlines all the model's Entities (see [http://xeogl.org/docs/classes/Entity.html](Entity) and [http://xeogl.org/docs/classes/OutlineMaterial.html](OutlineMaterial)). |
+| highlight | Boolean |  | false | When true, highlights all the model's Entities (see [http://xeogl.org/docs/classes/Entity.html](Entity)). |
 | ghostEdgeThreshold | Number | [0..180] | 2 | When ghosting, this is the threshold angle between normals of adjacent triangles, below which their shared wireframe edge is not drawn. |
-| maxEntities | Number | | | Optional maximum number of [Entity](http://xeogl.org/docs/classes/Entity.html)'s to load. |
-| included | Function(entityId) | | null | Optional callback to mask which [Entity](http://xeogl.org/docs/classes/Entity.html)'s are loaded. Entity will only be loaded when this callback returns ````true``` for the given Entity ID. |
+| maxEntities | Number | | | Optional maximum number of [http://xeogl.org/docs/classes/Entity.html](Entity)'s to load. |
+| included | Function(entityId) | | null | Optional callback to mask which [http://xeogl.org/docs/classes/Entity.html](Entity)'s are loaded. Entity will only be loaded when this callback returns ````true``` for the given Entity ID. |
 
 Using the ````flattenTransforms```` option to load a glTF model while flattening its transform hierarchy:
 
@@ -122,7 +122,7 @@ That's assuming that we've created the GLTFModel in the default xeogl Scene, whi
 
 ### Finding loaded Entities
 
-Once the GLTFModel has loaded, its [Scene](http://xeogl.org/docs/classes/Scene.html) will contain various components that represent the elements of the glTF file.
+Once the GLTFModel has loaded, its [http://xeogl.org/docs/classes/Scene.html](Scene) will contain various components that represent the elements of the glTF file.
 We'll now access some of those components by ID, to query and update them programmatically.
 
 Let's highlight a couple of Entities in our GLTFModel:
@@ -146,11 +146,11 @@ while its entities map contains just the Entities:
 model.entities["gearbox77.0"].highlight = true;
 ````
 
-Note the format of the [Entity](http://xeogl.org/docs/classes/Entity.html) IDs:
+Note the format of the [http://xeogl.org/docs/classes/Entity.html](Entity) IDs:
 
 ````<GLTFModel ID>#<glTF node ID>.<glTF primitive index>````
 
-Within the glTF, a node's mesh may contain multiple primitives. For each primitive, xeogl will create a separate [Entity](http://xeogl.org/docs/classes/Entity.html). Within each Entity's ID, the part before the hash is the ID of the GLTFModel, followed by the ID of the node, then ".", then the index of the primitive within the mesh.
+Within the glTF, a node's mesh may contain multiple primitives. For each primitive, xeogl will create a separate [http://xeogl.org/docs/classes/Entity.html](Entity). Within each Entity's ID, the part before the hash is the ID of the GLTFModel, followed by the ID of the node, then ".", then the index of the primitive within the mesh.
 
 ### Transforming a GLTFModel
 
@@ -216,7 +216,7 @@ We can also subscribe to changes to that boundary, which will happen whenever
 * the GLTFModel's [Transform](http://xeogl.org/docs/classes/Transform.html) is updated,
 * components are added or removed, or
 * the GLTF model is reloaded from a different source,
-* the [Geometries](http://xeogl.org/docs/classes/Geometry.html) or [Transform](http://xeogl.org/docs/classes/Transform.html) of its [Entities](http://xeogl.org/docs/classes/Entity.html) are updated.
+* the [http://xeogl.org/docs/classes/Geometry.html](Geometries) or [http://xeogl.org/docs/classes/Transform.html](Transforms) of its [http://xeogl.org/docs/classes/Entity.html](Entities) are updated.
 
 ````javascript
 model.on("boundary", function() {
