@@ -1,5 +1,6 @@
 ## Loading glTF Models
 
+* [Supported features](#supported-features)
 * [Loading glTF](#loading-gltf)
 * [Loading options](#loading-options)
 * [Finding loaded Entities](#finding-loaded-entities)
@@ -72,174 +73,167 @@ model.src = "models/gltf/Buggy/glTF/Buggy.gltf"
 
 The following options may be specified when loading glTF:
 
- | Option | Type | Range | Default Value | Description |
- |:--------:|:----:|:-----:|:-------------:|:-----:|:-----------:|
- | flattenTransforms | Boolean |  | true | Flattens transform hierarchies to improve rendering performance. |
- | lambertMaterials | Boolean |  | false | When true, gives each {{#crossLink "Entity"}}{{/crossLink}} the same {{#crossLink "LambertMaterial"}}{{/crossLink}} and a {{#crossLink "Entity/colorize:property"}}{{/crossLink}} set the to diffuse color extracted from the glTF material. This is typically used for CAD models with huge amounts of objects, and will ignore textures.|
- | quantizeGeometry | Boolean |  | true | When true, quantizes geometry to reduce memory and GPU bus usage (see {{#crossLink "Geometry"}}{{/crossLink}}). |
- | combineGeometry | Boolean |  | true | When true, combines geometry vertex buffers to improve rendering performance (see {{#crossLink "Geometry"}}{{/crossLink}}). |
- | backfaces | Boolean |  | true | When true, allows visible backfaces, wherever specified in the glTF. When false, ignores backfaces. |
- | ghost | Boolean |  | false | When true, ghosts all the model's Entities (see {{#crossLink "Entity"}}{{/crossLink}} and {{#crossLink "GhostMaterial"}}{{/crossLink}}). |
- | outline | Boolean |  | false | When true, outlines all the model's Entities (see {{#crossLink "Entity"}}{{/crossLink}} and {{#crossLink "OutlineMaterial"}}{{/crossLink}}). |
- | highlight | Boolean |  | false | When true, highlights all the model's Entities (see {{#crossLink "Entity"}}{{/crossLink}} and {{#crossLink "HighlightMaterial"}}{{/crossLink}}). |
- | ghostEdgeThreshold | Number | [0..180] | 2 | When ghosting, this is the threshold angle between normals of adjacent triangles, below which their shared wireframe edge is not drawn. |
- | maxEntities | Number | | | Optional maximum number of {{#crossLink "Entity"}}{{/crossLink}}'s to load. |
- | included | Function(entityId) | | null | Optional callback to mask which {{#crossLink "Entity"}}{{/crossLink}}'s are loaded. Entity will only be loaded when this callback returns ````true``` for the given Entity ID. |
+| Option | Type | Range | Default Value | Description |
+|:--------:|:----:|:-----:|:-------------:|:-----:|:-----------:|
+| flattenTransforms | Boolean |  | true | Flattens transform hierarchies to improve rendering performance. |
+| lambertMaterials | Boolean |  | false | When true, gives each {{#crossLink "Entity"}}{{/crossLink}} the same {{#crossLink "LambertMaterial"}}{{/crossLink}} and a {{#crossLink "Entity/colorize:property"}}{{/crossLink}} set the to diffuse color extracted from the glTF material. This is typically used for CAD models with huge amounts of objects, and will ignore textures.|
+| quantizeGeometry | Boolean |  | true | When true, quantizes geometry to reduce memory and GPU bus usage (see {{#crossLink "Geometry"}}{{/crossLink}}). |
+| combineGeometry | Boolean |  | true | When true, combines geometry vertex buffers to improve rendering performance (see {{#crossLink "Geometry"}}{{/crossLink}}). |
+| backfaces | Boolean |  | true | When true, allows visible backfaces, wherever specified in the glTF. When false, ignores backfaces. |
+| ghost | Boolean |  | false | When true, ghosts all the model's Entities (see {{#crossLink "Entity"}}{{/crossLink}} and {{#crossLink "GhostMaterial"}}{{/crossLink}}). |
+| outline | Boolean |  | false | When true, outlines all the model's Entities (see {{#crossLink "Entity"}}{{/crossLink}} and {{#crossLink "OutlineMaterial"}}{{/crossLink}}). |
+| highlight | Boolean |  | false | When true, highlights all the model's Entities (see {{#crossLink "Entity"}}{{/crossLink}} and {{#crossLink "HighlightMaterial"}}{{/crossLink}}). |
+| ghostEdgeThreshold | Number | [0..180] | 2 | When ghosting, this is the threshold angle between normals of adjacent triangles, below which their shared wireframe edge is not drawn. |
+| maxEntities | Number | | | Optional maximum number of {{#crossLink "Entity"}}{{/crossLink}}'s to load. |
+| included | Function(entityId) | | null | Optional callback to mask which {{#crossLink "Entity"}}{{/crossLink}}'s are loaded. Entity will only be loaded when this callback returns ````true``` for the given Entity ID. |
 
- Using the ````flattenTransforms```` option to load a glTF model while flattening its transform hierarchy:
+Using the ````flattenTransforms```` option to load a glTF model while flattening its transform hierarchy:
 
- ````javascript
- var model = new xeogl.GLTFModel({
-     id: "gearbox",
-     src: "models/gltf/gearbox_conical/scene.gltf",
-     flattenTransforms: true
+````javascript
+var model = new xeogl.GLTFModel({
+    id: "gearbox",
+    src: "models/gltf/gearbox_conical/scene.gltf",
+    flattenTransforms: true
+});
+````
+
+Using the ````included```` option to load all entities except for those with IDs "gearbox#77.0" and "gearbox#79.0":
+
+````javascript
+var model = new xeogl.GLTFModel({
+    id: "gearbox",
+    src: "models/gltf/gearbox_conical/scene.gltf",
+    included: function(entityId) {
+       return id !== ("gearbox#77.0") &&  (id !== "gearbox#79.0");
+    }
+});
+````
+
+### Finding GLTFModels in Scenes
+
+Our GLTFModel will now be registered by ID on its Scene, so we can now find it like this:
+
+````javascript
+model = xeogl.scene.models["gearbox"];
+````
+
+That's assuming that we've created the GLTFModel in the default xeogl Scene, which we're doing in these examples.
+
+### Finding loaded Entities
+
+Once the GLTFModel has loaded, its {{#crossLink "Scene"}}{{/crossLink}} will contain various components that represent the elements of the glTF file.
+We'll now access some of those components by ID, to query and update them programmatically.
+
+Let's highlight a couple of {{#crossLink "Entity"}}Entities{{/crossLink}} in our GLTFModel:
+
+````javascript
+var entities = scene.entities;
+
+entities["gearbox77.0"].highlight = true;
+entities["gearbox79.0"].highlight = true;
+````
+
+A GLTFModel also has ID maps of the components within it. Its components map contains all its {{#crossLink "Component"}}Components{{/crossLink}} in one big map:
+
+````javascript
+model.components["gearbox77.0"].highlight = true;
+````
+
+while its entities map contains just the {{#crossLink "Entity"}}Entities{{/crossLink}}:
+
+````javascript
+model.entities["gearbox77.0"].highlight = true;
+````
+
+Note the format of the {{#crossLink "Entity"}}{{/crossLink}} IDs:
+
+````<GLTFModel ID>#<glTF node ID>.<glTF primitive index>````
+
+Within the glTF, a node's mesh may contain multiple primitives. For each primitive, xeogl will create a separate {{#crossLink "Entity"}}{{/crossLink}}. Within each Entity's ID, the part before the hash is the ID of the GLTFModel, followed by the ID of the node, then ".", then the index of the primitive within the mesh.
+
+### Transforming a GLTFModel
+
+A GLTFModel lets us transform its Entities as a group.
+
+We can attach a modeling {{#crossLink "Transform"}}{{/crossLink}} to our GLTFModel, as a either a configuration object or a component instance:
+
+````javascript
+// Attach transforms as a configuration object:
+model.transform = {
+    type: "xeogl.Translate",
+    xyz: [-35, 0, 0],
+    parent: {
+        type: "xeogl.Rotate",
+        xyz: [0, 1, 0],
+        angle: 45
+    }
+};
+
+// Attach our own transform instances:
+model.transform = new xeogl.Translate({
+    xyz: [-35, 0, 0],
+    parent: new xeogl.Rotate({
+        xyz: [0, 1, 0],
+        angle: 45
+    })
+});
+````
+
+We can also provide the {{#crossLink "Transform"}}{{/crossLink}} to the GLTFModel constructor, as either configuration objects or instances.
+
+Here we'll provide a Transform hierarchy as a configuration object:
+
+````javascript
+// Model internally instantiates our transform components:
+var model = new xeogl.GLTFModel({
+    src: "models/gltf/gearbox_conical/scene.gltf",
+    transform: {
+       type: "xeogl.Translate",
+       xyz: [-35, 0, 0],
+       parent: {
+           type: "xeogl.Rotate",
+           xyz: [0, 1, 0],
+           angle: 45
+       }
+    }
  });
- ````
+````
 
- Using the ````included```` option to load all entities except for those with IDs "gearbox#77.0" and "gearbox#79.0":
+### Getting the World-space boundary of a GLTFModel
 
- ````javascript
- var model = new xeogl.GLTFModel({
-     id: "gearbox",
-     src: "models/gltf/gearbox_conical/scene.gltf",
-     included: function(entityId) {
-        return id !== ("gearbox#77.0") &&  (id !== "gearbox#79.0");
-     }
- });
- ````
+Get the World-space axis-aligned boundary like this:
 
- ### Finding GLTFModels in Scenes
+````javascript
+model.on("boundary", function() {
+   var aabb = model.aabb; //  [xmin, ymin,zmin,xmax,ymax, zmax]
+   //...
+});
+````
 
- Our GLTFModel will now be registered by ID on its Scene, so we can now find it like this:
+We can also subscribe to changes to that boundary, which will happen whenever
 
- ````javascript
- model = xeogl.scene.models["gearbox"];
- ````
+* the GLTFModel's {{#crossLink "Transform"}}{{/crossLink}} is updated,
+* components are added or removed, or
+* the GLTF model is reloaded from a different source,
+* the {{#crossLink "Geometry"}}Geometries{{/crossLink}} or {{#crossLink "Transform"}}Transforms{{/crossLink}} of its {{#crossLink "Entities"}}Entities{{/crossLink}} are updated.
 
- That's assuming that we've created the GLTFModel in the default xeogl Scene, which we're doing in these examples.
+````javascript
+model.on("boundary", function() {
+   var aabb = model.aabb; // [xmin, ymin,zmin,xmax,ymax, zmax]
+});
+````
 
- ### Finding loaded Entities
+### Clearing a GLTFModel
 
- Once the GLTFModel has loaded, its {{#crossLink "Scene"}}{{/crossLink}} will contain various components that represent the elements of the glTF file.
- We'll now access some of those components by ID, to query and update them programmatically.
+```` Javascript
+model.clear();
+````
 
- Let's highlight a couple of {{#crossLink "Entity"}}Entities{{/crossLink}} in our GLTFModel:
+### Destroying a GLTFModel
 
- ````javascript
- var entities = scene.entities;
-
- entities["gearbox77.0"].highlight = true;
- entities["gearbox79.0"].highlight = true;
- ````
-
- A GLTFModel also has ID maps of the components within it. Its components map contains all
- its {{#crossLink "Component"}}Components{{/crossLink}} in one big map:
-
- ````javascript
- model.components["gearbox77.0"].highlight = true;
- ````
-
- while its entities map contains just the {{#crossLink "Entity"}}Entities{{/crossLink}}:
-
- ````javascript
- model.entities["gearbox77.0"].highlight = true;
- ````
-
-
- Note the format of the {{#crossLink "Entity"}}{{/crossLink}} IDs:
-
- ````<GLTFModel ID>#<glTF node ID>.<glTF primitive index>````
-
- Within the glTF, a node's mesh may contain multiple primitives. For each primitive, xeogl will create
- a separate {{#crossLink "Entity"}}{{/crossLink}}. Within each Entity's ID, the part before the hash is the ID of the GLTFModel,
- followed by the ID of the node, then ".", then the index of the primitive within the mesh.
-
- ### Transforming a GLTFModel
-
- A GLTFModel lets us transform its Entities as a group.
-
- We can attach a modeling {{#crossLink "Transform"}}{{/crossLink}} to our GLTFModel, as a either a
- configuration object or a component instance:
-
- ````javascript
- // Attach transforms as a configuration object:
- model.transform = {
-        type: "xeogl.Translate",
-        xyz: [-35, 0, 0],
-        parent: {
-            type: "xeogl.Rotate",
-            xyz: [0, 1, 0],
-            angle: 45
-        }
-     };
-
- // Attach our own transform instances:
- model.transform = new xeogl.Translate({
-        xyz: [-35, 0, 0],
-        parent: new xeogl.Rotate({
-            xyz: [0, 1, 0],
-            angle: 45
-        })
-     });
- ````
-
- We can also provide the {{#crossLink "Transform"}}{{/crossLink}} to the GLTFModel constructor, as either configuration
- objects or instances.
-
- Here we'll provide a Transform hierarchy as a configuration object:
-
- ````javascript
- // Model internally instantiates our transform components:
- var model = new xeogl.GLTFModel({
-     src: "models/gltf/gearbox_conical/scene.gltf",
-     transform: {
-        type: "xeogl.Translate",
-        xyz: [-35, 0, 0],
-        parent: {
-            type: "xeogl.Rotate",
-            xyz: [0, 1, 0],
-            angle: 45
-        }
-     }
- });
-
- ````
-
- ### Getting the World-space boundary of a GLTFModel
-
- Get the World-space axis-aligned boundary like this:
-
- ````javascript
- model.on("boundary", function() {
-    var aabb = model.aabb; //  [xmin, ymin,zmin,xmax,ymax, zmax]
-    //...
- });
- ````
-
- We can also subscribe to changes to that boundary, which will happen whenever
-
- * the GLTFModel's {{#crossLink "Transform"}}{{/crossLink}} is updated,
- * components are added or removed, or
- * the GLTF model is reloaded from a different source,
- * the {{#crossLink "Geometry"}}Geometries{{/crossLink}} or {{#crossLink "Transform"}}Transforms{{/crossLink}} of its {{#crossLink "Entities"}}Entities{{/crossLink}} are updated.
-
- ````javascript
- model.on("boundary", function() {
-    var aabb = model.aabb; // [xmin, ymin,zmin,xmax,ymax, zmax]
- });
- ````
-
- ### Clearing a GLTFModel
-
- ```` Javascript
- model.clear();
- ````
-
- ### Destroying a GLTFModel
-
- ```` Javascript
- model.destroy();
- ````
+```` Javascript
+model.destroy();
+````
 
 ## Examples
 
