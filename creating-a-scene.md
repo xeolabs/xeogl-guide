@@ -31,9 +31,9 @@ var entity = new xeogl.Entity({
 });
 ```
 
-Here's what we just created:
+Here's what you've just created:
 
-[![](http://localhost:8082/website/assets/images/example1.png)](http://xeogl.org/examples/#entities_examples_metallicTorus)
+[![](/assets/metallicTorus.png)](http://xeogl.org/examples/#entities_examples_metallicTorus)
 
-[![](http://localhost:8082/website/assets/images/conceptScene.png)](http://xeogl.org/examples/#importing_gltf_GearboxAssy)
+[![](/assets/metallicTorusScene.png)](http://xeogl.org/examples/#importing_gltf_GearboxAssy)
 
