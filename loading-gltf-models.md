@@ -77,12 +77,12 @@ The following options may be specified when loading glTF:
 | Option | Type | Range | Default Value | Description |
 |:--------:|:----:|:-----:|:-------------:|:-----:|:-----------:|
 | flattenTransforms | Boolean |  | true | Flattens transform hierarchies to improve rendering performance. |
-| lambertMaterials | Boolean |  | false | When true, gives each [Entity](http://xeogl.org/docs/classes/Entity.html) the same [http://xeogl.org/docs/classes/LambertMaterial.html](LambertMaterial) and a ````colorize```` property set the to diffuse RGB color extracted from the glTF material. This is typically used for CAD models with huge amounts of objects, and will ignore textures.|
+| lambertMaterials | Boolean |  | false | When true, gives each [Entity](http://xeogl.org/docs/classes/Entity.html) the same [LambertMaterial](http://xeogl.org/docs/classes/LambertMaterial.html) and a ````colorize```` property set the to diffuse RGB color extracted from the glTF material. This is typically used for CAD models with huge amounts of objects, and will ignore textures.|
 | quantizeGeometry | Boolean |  | true | When true, quantizes geometry to reduce memory and GPU bus usage (see [Geometry](http://xeogl.org/docs/classes/Geometry.html)). |
 | combineGeometry | Boolean |  | true | When true, combines geometry vertex buffers to improve rendering performance (see [Geometry](http://xeogl.org/docs/classes/Geometry.html)). |
 | backfaces | Boolean |  | true | When true, allows visible backfaces, wherever specified in the glTF. When false, ignores backfaces. |
-| ghost | Boolean |  | false | When true, ghosts all the model's Entities (see [Entity](http://xeogl.org/docs/classes/Entity.html) and [http://xeogl.org/docs/classes/GhostMaterial.html](GhostMaterial)). |
-| outline | Boolean |  | false | When true, outlines all the model's Entities (see [Entity](http://xeogl.org/docs/classes/Entity.html) and [http://xeogl.org/docs/classes/OutlineMaterial.html](OutlineMaterial)). |
+| ghost | Boolean |  | false | When true, ghosts all the model's Entities (see [Entity](http://xeogl.org/docs/classes/Entity.html) and [GhostMaterial](http://xeogl.org/docs/classes/GhostMaterial.html)). |
+| outline | Boolean |  | false | When true, outlines all the model's Entities (see [Entity](http://xeogl.org/docs/classes/Entity.html) and [OutlineMaterial](http://xeogl.org/docs/classes/OutlineMaterial.html)). |
 | highlight | Boolean |  | false | When true, highlights all the model's Entities (see [Entity](http://xeogl.org/docs/classes/Entity.html)). |
 | ghostEdgeThreshold | Number | [0..180] | 2 | When ghosting, this is the threshold angle between normals of adjacent triangles, below which their shared wireframe edge is not drawn. |
 | maxEntities | Number | | | Optional maximum number of [Entity](http://xeogl.org/docs/classes/Entity.html)'s to load. |
