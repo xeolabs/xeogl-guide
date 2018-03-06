@@ -47,7 +47,7 @@ A GLTFModel prefixes its own ID to those of its components. The ID is optional, 
 The GLTFModel begins loading the glTF file immediately. 
 
 To bind a callback to be notified when the file has loaded (which fires immediately if already loaded):
-
+ 
 ````javascript
 model.on("loaded", function() {
     // GLTFModel has loaded!
