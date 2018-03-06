@@ -12,13 +12,11 @@
 
 ## Overview
 
-* A GLTFModel is a container of [Components](http://xeogl.org/docs/classes/Component.html) that loads itself from a glTF file.
-* It begins loading as soon as you set its ````src````
- property to the location of a valid glTF file.
-* You can set ````src```` to a new file path at any time, which causes
- the GLTFModel to clear itself and load components from the new file.
+* Load glTF using a [GLTFModel](http://xeogl.org/docs/classes/GLTFModel.html), which is a container of [Components](http://xeogl.org/docs/classes/Component.html) that loads itself from a glTF file.
+* It begins loading as soon as you set its ````src````  property to the location of a valid glTF file.
+* You can set ````src```` to a new file path at any time, which causes the GLTFModel to clear itself and load components from the new file.
 
-It inherits these capabilities from its [Model](http://xeogl.org/docs/classes/Model.html) base class:
+GLTFModel inherits these capabilities from its [Model](http://xeogl.org/docs/classes/Model.html) base class:
 
 * Allows you to access and manipulate the components within it.
 * Can be transformed within World-space by attaching it to a [Transform](http://xeogl.org/docs/classes/Transform.html).
